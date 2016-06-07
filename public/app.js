@@ -62,19 +62,18 @@ var generateView = function( index ) {
   popView.innerText = countries[index].population;
   countryView.appendChild( popView );
 
-  var country = [];
-  country.push( countries[index].name );
-  country.push( countries[index].capital );
-  country.push( countries[index].population );
+  var countryToStore = [];
+  countryToStore.push( countries[index].name );
+  countryToStore.push( countries[index].capital );
+  countryToStore.push( countries[index].population );
 
-  updateLocalStorage( country );
+  updateLocalStorage( countryToStore );
 }
 
 var updateLocalStorage = function( country ) {
   var stringCountry = JSON.stringify( country );
   localStorage.setItem( "country", stringCountry );
 }
-
 
 var clearView = function() {
 
