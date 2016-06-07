@@ -1,4 +1,5 @@
 var countries = [];
+var country = JSON.parse( localStorage.getItem( "country" ) ) || [];
 
 window.onload = function() {
   var url = "https://restcountries.eu/rest/v1"
@@ -18,6 +19,7 @@ window.onload = function() {
       // var country = countries[0];
       // console.log( country.name );
 
+      
       var dropdownMenu = document.getElementById( "dropbtn" );
       var dropdownOption = document.getElementById( "myDropdown" );
       dropdownOption.onchange = changeEventHandler;
@@ -39,31 +41,40 @@ var changeEventHandler = function( event ) {
   var index = Number( event.target.value );
   var country = countries[index];
   var countryView = document.getElementById( "country-list" );
-  countryView.innerHTML = "";
   generateView( index );
 }
 
 var generateView = function( index ) {
   
-  var countryView = document.getElementById( "country-list" )
+  var countryView = document.getElementById( "list" )
 
-  var nameView = document.createElement( "h3" );
-  nameView.text = countries[index].name;
+  countryView.innerHTML = "";
+
+  var nameView = document.createElement( "li" );
+  nameView.innerText = countries[index].name;
   countryView.appendChild( nameView );
 
-  var capitalView = document.createElement( "h4" );
-  capitalView.text = countries[index].capital;
-  nameView.appendChild( capitalView );
+  var capitalView = document.createElement( "li" );
+  capitalView.innerText = countries[index].capital;
+  countryView.appendChild( capitalView );
   
-  var popView = document.createElement( "h4" );
-  popView.text = countries[index].population;
-  capitalView.appendChild( popView );
+  var popView = document.createElement( "li" );
+  popView.innerText = countries[index].population;
+  countryView.appendChild( popView );
 
+  var country = [];
+  country.push( countries[index].name );
+  country.push( countries[index].capital );
+  country.push( countries[index].population );
+
+  updateLocalStorage( country );
 }
 
-var updateLocalStorage = function() {
-
+var updateLocalStorage = function( country ) {
+  var stringCountry = JSON.stringify( country );
+  localStorage.setItem( "country", stringCountry );
 }
+
 
 var clearView = function() {
 
